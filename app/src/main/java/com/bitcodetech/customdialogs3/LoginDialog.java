@@ -13,8 +13,8 @@ public class LoginDialog extends Dialog {
     private Button btnSignIn;
 
     public interface OnLoginListener {
-        void onSuccess();
-        void onFail();
+        void onSuccess(LoginDialog loginDialog);
+        void onFail(LoginDialog loginDialog);
     }
 
     private OnLoginListener onLoginListener = null;
@@ -36,10 +36,10 @@ public class LoginDialog extends Dialog {
         @Override
         public void onClick(View view) {
             if (edtUsername.getText().toString().equals("bitcode") && edtPassword.getText().toString().equals("bitcode")) {
-                onLoginListener.onSuccess();
-                dismiss();
+                onLoginListener.onSuccess(LoginDialog.this);
+//                dismiss(); //not good
             } else {
-                onLoginListener.onFail();
+                onLoginListener.onFail(LoginDialog.this);
             }
         }
     }

@@ -26,14 +26,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class MyLoginListener implements LoginDialog.OnLoginListener {
+
+        private int failedAttempts = 0;
+
         @Override
-        public void onSuccess() {
+        public void onSuccess(LoginDialog loginDialog) {
             mt("My Success Action");
+            loginDialog.dismiss();
         }
 
         @Override
-        public void onFail() {
-            mt("My Fail Action");
+        public void onFail(LoginDialog loginDialog) {
+            failedAttempts++;
+
+            if(failedAttempts == 5) {
+                mt("Account blocked...");
+                loginDialog.dismiss();
+            }
+            else {
+                mt("My Fail Action");
+            }
         }
     }
 
